@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibrant To-Do List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    body {
+      background: linear-gradient(135deg, #c353c7 0%, #fad0c4 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .todo-app {
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .todo-app h1 {
+      color: #e72bee;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 1rem;
+      border: 2px solid #b804a9;
+    }
+
+    button {
+      padding: 0.6rem 1rem;
+      background-color: #cc1fc3;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c266df;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    li {
+      background-color: #fcefee;
+      padding: 0.8rem;
+      margin-bottom: 0.5rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      color: gray;
+      background-color: #e8e8e8;
+    }
+
+    .delete-btn {
+      background-color: transparent;
+      border: none;
+      color: #ff6f91;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-app">
+    <h1> To-Do</h1>
+    <div class="input-section">
+      <input type="text" id="taskInput" placeholder="Add a colorful task...">
+      <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (taskText === '') return;
+
+      const li = document.createElement('li');
+      li.textContent = taskText;
+      li.addEventListener('click', () => {
+        li.classList.toggle('completed');
+      });
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '✕';
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.onclick = () => li.remove();
+
+      li.appendChild(deleteBtn);
+      taskList.appendChild(li);
+      taskInput.value = '';
+    }
+  </script>
+</body>
+</html>
